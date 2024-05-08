@@ -16,44 +16,106 @@ import java.util.function.Function;
  * 5 (index 5), 6 (index 6) -> count = 5
  * 5 (index 5), 6 (index 7) -> count = 6
  * Total pairs that sum up to 11 = 6
+ * 
+ * Source: https://youtu.be/ijKmiFqjzi4?si=z0ugDwjY4Ls0FnnI
  */
 public class SumPairs {
+    /**
+     * Correct Soln: Function to count pairs in the array whose sum is equal to
+     * target
+     *
+     * @param array  sorted array of numbers in ascending order
+     * @param target the target sum
+     * @return the total number of pairs
+     */
     public static int pairSum(int[] array, int target) {
-        int start = 0;
-        int end = array.length - 1;
-        int pairCount = 0;
+        int start = 0; // Initialize start pointer
+        int end = array.length - 1; // Initialize end pointer
+        int pairCount = 0; // Initialize pair count
 
+        // Loop until start pointer is less than end pointer
         while (start < end) {
+            // If sum of elements at start and end pointers is greater than target
             if ((array[start] + array[end]) > target) {
-                end--;
-            } else if ((array[start] + array[end]) < target) {
-                start++;
-            } else {
+                end--; // Decrement end pointer
+            }
+            // If sum of elements at start and end pointers is less than target
+            else if ((array[start] + array[end]) < target) {
+                start++; // Increment start pointer
+            }
+            // If sum of elements at start and end pointers is equal to target
+            else {
+                // If elements at start and end pointers are different
                 if (array[start] != array[end]) {
-                    int count1 = 0;
-                    int count2 = 0;
-                    int left = array[start];
-                    int right = array[end];
+                    int count1 = 0; // Initialize count1 to count occurrences of leftElement
+                    int count2 = 0; // Initialize count2 to count occurrences of rightElement
+                    int left = array[start]; // Store element at start pointer
+                    int right = array[end]; // Store element at end pointer
+
+                    // Count occurrences of left element
                     while (array[start] == left) {
                         start++;
                         count1++;
                     }
+                    // Count occurrences of right element
                     while (array[end] == right) {
                         end--;
                         count2++;
                     }
+
+                    // Add count of pairs for different elements to pairCount
                     pairCount = pairCount + (count1 * count2);
                 }
+                // If elements at start and end pointers are same
                 if (array[start] == array[end]) {
+                    // Calculate count of pairs for same elements and return
                     pairCount = pairCount + numberOfPairsForSameNumber(end - start);
                     return pairCount;
                 }
             }
         }
 
-        return pairCount;
+        return pairCount; // Return total pair count
     }
 
+    // public static int pairSum2(int[] arr, int k) {
+    // int left = 0;
+    // int right = arr.length - 1;
+    // int count = 0;
+    // int newRight = right;
+    // // [1, 4, 4, 5, 5, 5, 6, 6, 11]
+    // while (left < newRight - 1) {
+    // System.out.println("test:" + left + " newRight: " + newRight);
+    // System.out.println("test:" + (left + newRight));
+    // if (arr[left] + arr[newRight] == k) {
+    // if (arr[left] == arr[right]) {
+    // int n = right - left + 1;
+    // count = count + (n * (n + 1) / 2);
+    // return count;
+    // } else {
+    // right = newRight;
+    // while (arr[left] + arr[right] == k) {
+    // count++;
+    // right--;
+    // }
+    // }
+    // } else if (arr[left] + arr[right] > k) {
+    // right--;
+    // newRight = right;
+    // }
+    // if (arr[left] + arr[right] < k) {
+    // left++;
+    // }
+    // }
+    // return count;
+    // }
+
+    /**
+     * Function to calculate number of pairs for same number using formula
+     * 
+     * @param n number of same number elements
+     * @return the calculated number of pairs
+     */
     public static int numberOfPairsForSameNumber(int n) {
         return (int) Math.floor(n * (n + 1) / 2);
     }
@@ -62,6 +124,7 @@ public class SumPairs {
      * Finds the number of pairs that add up to sum k
      * 
      * @param nums sorted array of numbers in ascending order
+     * @param k    the target sum
      * @return the total number of pairs
      */
     private static int findPairs2(int[] nums, int k) {
@@ -133,9 +196,10 @@ public class SumPairs {
     public static void main(String[] args) {
         int[] sortedNums = { 1, 4, 4, 5, 5, 5, 6, 6, 11 };
         printArr(sortedNums);
-        int k = 11;
+        int k = 10;
         System.out.println("\n" + findPairs(sortedNums, k));
         System.out.println(findPairs2(sortedNums, k));
         System.out.println(pairSum(sortedNums, k));
+        // System.out.println(pairSum2(sortedNums, k));
     }
 }
