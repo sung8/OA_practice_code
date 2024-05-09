@@ -44,7 +44,7 @@ class Hourglass {
 
     }
 
-    public static List<List<Integer>> parseInputFile(String filePath) {
+    private static List<List<Integer>> parseInputFile(String filePath) {
         List<List<Integer>> grid = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
