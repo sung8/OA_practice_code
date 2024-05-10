@@ -65,48 +65,38 @@ public class MinimizeSetValueDiff {
 
     private static int[] minimize(int[] A, int[] B, int[] C) {
         int[] res = new int[4]; // res[3] = minimized difference
-        boolean isMinimized = false;
         int i = 0;
         int j = 0;
         int k = 0;
-        int[] currStateMin = getIndexOfMin(A, B, C, i, j, k);
-        int[] currStateMax = getIndexOfMax(A, B, C, i, j, k);
         // System.out.println(currStateMin[0] + " " + currStateMin[1]);
-        int currDiff = Math.abs(max(A[i], B[j], C[k]) - min(A[i], B[j], C[k]));
-        int newDiff = 2147483647;
-        while (!isMinimized) {
-            if (currStateMin[0] == 1 && currStateMin[1] == i) {
+        int currDiff = 0;
+        int ans = 2147483647;
+
+        // will not work if end of arr is the answer
+        while (i < A.length - 1 && j < B.length - 1 && k < C.length - 1) {
+            currDiff = Math.abs(Math.max(Math.max(A[i], B[j]), C[k]) - Math.min(Math.min(A[i], B[j]), C[k]));
+            // currStateMin = getIndexOfMin(A, B, C, i, j, k);
+            // System.out.println(currStateMin[0] + " " + currStateMin[1]);
+            // System.out.println("i=" + i + ", j=" + j + ", k=" + k + ", val: " +
+            // currDiff);
+
+            ans = Math.min(ans, currDiff);
+
+            System.out.println("i=" + i + ", j=" + j + ", k=" + k + ", val: " + currDiff + " ans: " + ans);
+            // ++the index which is the min is the least
+            int minVal = Math.min(Math.min(A[i], B[j]), C[k]);
+            if (minVal == A[i]) {
                 i++;
-            } else if (currStateMin[0] == 2 && currStateMin[1] == j) {
+            } else if (minVal == B[j]) {
                 j++;
             } else {
                 k++;
             }
-            newDiff = Math.abs(max(A[i], B[j], C[k]) - min(A[i], B[j], C[k]));
-            // currStateMin = getIndexOfMin(A, B, C, i, j, k);
-            // System.out.println(currStateMin[0] + " " + currStateMin[1]);
-            System.out.println("i=" + i + ", j=" + j + ", k=" + k);
-            if (newDiff < currDiff) {
-                currDiff = newDiff;
-            } else {
-                res[0] = A[i];
-                res[1] = B[j];
-                res[2] = C[k];
-                res[3] = currDiff;
-                isMinimized = true;
-            }
-
-            // return new int[] { A[i], B[j], C[k] };
-            // return new int[] { i, j, k };
         }
-
-        isMinimized = false;
-        System.out.println(currStateMin[0] + " " + currStateMin[1]);
-
-        // while (!isMinimized) {
-
-        // }
-        // return new int[] { A[i], B[j], C[k] };
+        res[0] = A[i];
+        res[1] = B[j];
+        res[2] = C[k];
+        res[3] = ans;
         return res;
     }
 
@@ -202,41 +192,22 @@ public class MinimizeSetValueDiff {
         System.out.print("C: ");
         printArr(C);
         // System.out.println(findMinOfThree(1, 2, 2));
-        System.out.println("==== TEST MIN AND MAX FUNCTIONS ====");
-        System.out.println(min(1, 2, 4));
-        System.out.println(max(1, 2, 4));
+        // System.out.println("==== TEST MIN AND MAX FUNCTIONS ====");
+        // System.out.println(min(1, 2, 4));
+        // System.out.println(max(1, 2, 4));
 
-        System.out.println("==== TEST STATE FUNCTIONS ====");
-        System.out.println("1=A, 2=B, 3=B");
-        System.out.println("[1, 0] == A[0]");
-        System.out.println("[B, 2] == B[2]");
-        printArr(getIndexOfMin(A, B, C, 0, 0, 0));
-        printArr(getIndexOfMax(A, B, C, 0, 0, 0));
+        // System.out.println("==== TEST STATE FUNCTIONS ====");
+        // System.out.println("1=A, 2=B, 3=B");
+        // System.out.println("[1, 0] == A[0]");
+        // System.out.println("[B, 2] == B[2]");
+        // printArr(getIndexOfMin(A, B, C, 0, 0, 0));
+        // printArr(getIndexOfMax(A, B, C, 0, 0, 0));
 
-        System.out.println("==== TEST MAIN MINIMIZE FUNCTION ====");
+        System.out.println("==== LENA TEST MAIN MINIMIZE FUNCTION ====");
         int[] ans = minimize(A, B, C);
         printArr(ans);
 
-        System.out.println("==== ANSWER CHECK ====");
-        ansCheck(A, B, C);
+        // System.out.println("==== ANSWER CHECK ====");
+        // ansCheck(A, B, C);
     }
-
-    // private static int findMinOfThree(int a, int b, int c) {
-    // if (a > b && a > c) {
-    // return 1;
-    // } else if (b > a && b > c) {
-    // return 2;
-    // } else if (c > a && c > b) {
-    // return 3;
-    // } else if (a == b && a == c) {
-    // return 0;
-    // } else if (a == b && a != c) {
-    // return 4;
-    // } else if (b == c && a != b) {
-    // return 5;
-    // } else if (a == c && b != c) {
-    // return 6;
-    // }
-    // return -1;
-    // }
 }
