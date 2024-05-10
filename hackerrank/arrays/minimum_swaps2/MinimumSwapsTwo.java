@@ -1,6 +1,32 @@
 package minimum_swaps2;
-// binary swap
+
 public class MinimumSwapsTwo {
+
+    // answer
+    public static int minimumSwaps(int[] arr) {
+        int count = 0;
+        int i = 0;
+        while (i < arr.length) {
+            int j = arr[i] - 1;
+            if (arr[i] != arr[j]) {
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+                count++;
+            } else {
+                i++;
+            }
+            printArr(arr);
+        }
+        return count;
+    }
+
+    // binary swap
+    public static int binarySwapCount(int[] nums) {
+        return 0;
+    }
+
+    // problem does NOT use bubble sort
     public static void bubbleSort(int[] array) {
         int n = array.length;
         boolean swapped;
@@ -42,9 +68,10 @@ public class MinimumSwapsTwo {
         System.out.println("Array before sorting:");
         printArr(arr);
         System.out.println("Sorting ... ");
-        bubbleSort(arr);
+        // bubbleSort(arr);
 
         // System.out.println("\nArray after sorting:");
         // printArr(arr);
+        System.out.println(minimumSwaps(arr));
     }
 }
