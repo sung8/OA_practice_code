@@ -1,7 +1,41 @@
+
+/**
+ * Neetcode Sliding Window List
+ * Longest Substring Without Repeating Characters
+ * Leetcode Medium
+ */
+
 import java.util.HashMap;
 import java.util.HashSet;
 
 public class LongestSubstringWithoutRepeatChar {
+    // correct 2
+    public static int slideTest(String s) {
+        int left = 0;
+        String longest = "";
+        HashSet<Character> hs = new HashSet<>();
+        int w = 0;
+        String currStr = "";
+        for (int right=0; right<s.length();right++){
+            //System.out.println(currStr);
+            while (hs.contains(s.charAt(right))) {
+                hs.remove(s.charAt(left));
+                currStr=currStr.substring(1);
+                left++;
+                //System.out.println(" - " + currStr);
+            }
+            w = (right-left) + 1; // window size
+            currStr = s.substring(left, right+1);
+            if (currStr.length()>longest.length()) {
+                longest=currStr;
+                //System.out.println(" * " + longest);
+            }
+            hs.add(s.charAt(right));
+            //System.out.println(" "+currStr);
+        }
+        return longest.length();
+    }
+    // correct
     public static int lengthOfLongestSubstring5(String s) {
         if (s.length() == 0) {
             return 0;
@@ -153,6 +187,7 @@ public class LongestSubstringWithoutRepeatChar {
         // System.out.println(lengthOfLongestSubstring3(str1)); //
         // StringIndexOutOfBoundsException
 
+        // attempt from solution
         // Test 1
         // System.out.println(lengthOfLongestSubstring4(str1));
         // System.out.println(lengthOfLongestSubstring5(str1));
@@ -160,7 +195,11 @@ public class LongestSubstringWithoutRepeatChar {
         // System.out.println(lengthOfLongestSubstring4(str3));
         // System.out.println(lengthOfLongestSubstring5(str3));
         // Test 407
-        System.out.println(lengthOfLongestSubstring4(str407));
-        System.out.println(lengthOfLongestSubstring5(str407));
+        //System.out.println(lengthOfLongestSubstring4(str407));
+        //System.out.println(lengthOfLongestSubstring5(str407));
+
+
+        // slide test
+        System.out.println(slideTest(str407));
     }
 }
