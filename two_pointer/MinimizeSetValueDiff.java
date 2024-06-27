@@ -31,6 +31,7 @@
 
 public class MinimizeSetValueDiff {
 
+    @SuppressWarnings("unused")
     private static void ansCheck(int[] a, int[] b, int[] c) {
         int i = 0;
         int j = 0;
@@ -100,6 +101,7 @@ public class MinimizeSetValueDiff {
         return res;
     }
 
+    @SuppressWarnings("unused")
     private static int[] getIndexOfMin(int[] A, int[] B, int[] C, int i, int j, int k) {
         int currMinOfThree = min(A[i], B[j], C[k]);
         int[] ArrAndIndex = new int[2];
@@ -123,6 +125,7 @@ public class MinimizeSetValueDiff {
         return ArrAndIndex;
     }
 
+    @SuppressWarnings("unused")
     private static int[] getIndexOfMax(int[] A, int[] B, int[] C, int i, int j, int k) {
         int currMaxOfThree = max(A[i], B[j], C[k]);
         int[] ArrAndIndex = new int[2];
@@ -154,6 +157,7 @@ public class MinimizeSetValueDiff {
         return Math.max(Math.max(a, b), c);
     }
 
+    @SuppressWarnings("unused")
     private static int smallest(int x, int y, int z) {
         int c = 0;
         while (x != 0 && y != 0 && z != 0) {

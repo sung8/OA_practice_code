@@ -17,6 +17,7 @@ public class ContainersWithMostWater {
      * 
      * @param nums array of numbers representing length of bars in a graph
      */
+    @SuppressWarnings("unused")
     private static void printHori(int[] nums) {
         System.out.println("Bar Graph:");
         // Find the maximum value in nums array to determine scaling

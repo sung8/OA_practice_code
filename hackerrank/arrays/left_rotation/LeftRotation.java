@@ -109,6 +109,7 @@ public class LeftRotation {
         return input;
     }
 
+    @SuppressWarnings("unused")
     private static void printInput(List<List<Integer>> parsedInput) {
         // Display the parsed input
         if (parsedInput.size() == 2) {
